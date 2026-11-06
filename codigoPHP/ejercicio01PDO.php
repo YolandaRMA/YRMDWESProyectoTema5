@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>04-01</title>
+        <title>01</title>
         <link rel="stylesheet" href="../webroot/css/estilos.css">
     </head>
     <body>
@@ -17,61 +17,31 @@
         antes de enviar contenido al navegador.
 -->
             <?php
-            //se crea array con los usuarios y contraseñas permitidos.
-            $aUsuariosPermitidos = [
-            'admin' => [
-                'password' => 'paso123',
-                'descripcion' => 'Usuario administrador'
-            ],
-            'yolanda' => [
-                'password' => 'paso321',
-                'descripcion' => 'Yolanda Rodríguez'
-                ]
-            ];
-            // Se comprueba si el navegador ha enviado las credenciales.
-            if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) {
-
-                // Se solicita al navegador la identificación del usuario.
-                header('WWW-Authenticate: Basic realm="Proyecto Tema 5"');
+            
+            //se crean constantes para usuario y contraseña
+            define("USUARIO", "admin");
+            define("PASSWORD", "paso");
+            if ($_SERVER['PHP_AUTH_USER']!= "USUARIO"|| $_SERVER['PHP_AUTH_PW']!="PASSWORD") {
+            // Se rechaza el acceso cuando las credenciales no son correctas.
+                header('WWW-Authenticate: Basic realm="Contenido restringido!!"');
                 header('HTTP/1.1 401 Unauthorized');
-
-                echo 'Es necesario identificarse para acceder a esta página.';
-                exit;
-            }
-            // Se recogen el código de usuario y la contraseña introducidos.
-            $codigoUsuario = $_SERVER['PHP_AUTH_USER'];
-            $passwordUsuario = $_SERVER['PHP_AUTH_PW'];
-
-            // Se comprueba si el usuario existe y si su contraseña es correcta.
-            if (
-                isset($aUsuariosPermitidos[$codigoUsuario]) &&
-                $aUsuariosPermitidos[$codigoUsuario]['password'] == $passwordUsuario
-            ) {
-                // Se obtiene la descripción del usuario identificado.
-                $descripcionUsuario = $aUsuariosPermitidos[$codigoUsuario]['descripcion'];
-
-            } else {
-
-                // Se rechaza el acceso cuando las credenciales no son correctas.
-                header('WWW-Authenticate: Basic realm="Proyecto Tema 5"');
-                header('HTTP/1.1 401 Unauthorized');
-
                 echo 'Usuario o contraseña incorrectos.';
                 exit;
+
             }
             ?>
             <header>
             <h1>Control de acceso</h1>
-        </header>
+            </header>
 
         <main>
 
             <h2>Acceso permitido</h2>
 
-            <p>Bienvenido, <?php echo $descripcionUsuario; ?>.</p>
+            <p>Bienvenido.</p>
 
             <p>Se ha identificado correctamente al usuario:
-                <strong><?php echo $codigoUsuario; ?></strong>
+                <strong><?php echo "USUARIO"; ?></strong>
             </p>
 
         </main>
