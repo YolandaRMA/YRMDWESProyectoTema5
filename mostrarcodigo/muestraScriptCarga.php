@@ -11,7 +11,7 @@
         </header>
         <main>
             <?php
-            $archivo = '../scriptDB/CargaInicialDBYRMDWESProyectoTema4.sql';
+            $archivo = '../scriptDB/CargaInicialDBYRMDWESProyectoTema5.sql';
 
             if ($archivo && file_exists($archivo)) {
 
@@ -22,10 +22,10 @@
             ?>
         </main>
         <footer>
-            <p><a href="../indexProyectoTema4.php">Home</a></p>
+            <p><a href="../indexProyectoTema5.php">Home</a></p>
             <div class="footer-text">
                 <p>2026-27 IES Los Sauces. &copy; Todos los derechos reservados.<a href="../index.html">Yolanda Rodríguez Moreno</a></p>
-                <time datetime="2026-09-30">Última actualización: 30 de Septiembre de 2026</time>
+                <time datetime="2026-09-30">Última actualización: 05 de Octubre de 2026</time>
             </div>
         </footer>
     </body>

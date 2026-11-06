@@ -2,69 +2,57 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>prueba</title>
         <link rel="stylesheet" href="../webroot/css/estilos.css">
+        <title>Variables superglobales</title>
     </head>
     <body>
-        <main>
-            <header>Prueba de conexión </header>
-
+        <header>
+            <h2>Mostrar el contenido de las variables superglobales y phpinfo()</h2>
             <?php
-            echo "1. Inicio del ejercicio<br>";
-            // Se carga el archivo con los datos de conexión.
-           // require_once '../config/configDB00_home.php';
-            require_once '../config/configDB00.php';
-            echo "2. Configuración cargada<br>";
+//            session_start();
+//            ?>
+        </header>
+        <main>
+            <?php
+            // array para respetar el orden requerido para mostrar las superglobales
+            $aOrdenSuperglobales = [
+                '_SESSION',
+                '_COOKIE',
+                '_SERVER',
+                '_REQUEST',
+                '_GET',
+                '_POST',
+                '_FILES',
+                '_ENV'
+            ];
 
-            try {
-                // Se establece la conexión con la base de datos.
-                // Se limita la espera de conexión a 3 segundos.
-                $conexionPDO = new PDO(HOST, USER, PASS, [
-                    PDO::ATTR_TIMEOUT => 3,
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-                ]);
+            // se recorren las superglobales siguiendo el orden establecido
+            foreach ($aOrdenSuperglobales as $nombre) {
 
-                echo "3. Conexión realizada correctamente<br>";
+                echo "<h3>Contenido de \$$nombre</h3>";
 
-                // Se obtiene la lista de tablas de la base de datos.
-                $tablas = $conexionPDO->query("SHOW TABLES");
-
-                // Se recorre cada tabla encontrada.
-                while ($tabla = $tablas->fetch(PDO::FETCH_NUM)) {
-                    $nombreTabla = $tabla[0];
-
-                    echo "<h3>Tabla: " . htmlspecialchars($nombreTabla) . "</h3>";
-
-                    // Se consultan todas las columnas y filas de la tabla.
-                    $consulta = $conexionPDO->query("SELECT * FROM `$nombreTabla`");
-
-                    // Se muestra el contenido de cada fila.
-                    while ($fila = $consulta->fetch(PDO::FETCH_ASSOC)) {
-                        foreach ($fila as $columna => $valor) {
-                            echo "<strong>" . htmlspecialchars($columna) . ":</strong> ";
-                            echo htmlspecialchars((string) $valor) . " | ";
-                        }
-
-                        echo "<br>";
-                    }
+                // Comprobamos si la superglobal contiene información
+                if (empty($GLOBALS[$nombre])) {
+                    echo "<p>Sin contenido disponible.</p>";
+                } else {
+                    // <pre> para conservar los espacios y saltos de línea del contenido
+                    echo "<pre>";
+                    print_r($GLOBALS[$nombre]);
+                    echo "</pre>";
                 }
-            } catch (PDOException $excepcion) {
-                echo "Error de conexión o consulta: " . $excepcion->getMessage();
-            } finally {
-                // Se libera la referencia al objeto de conexión.
-                unset($conexionPDO);
+
+                echo "<hr>";
             }
+
+            //se muestra la información de configuración de PHP
+            phpinfo();
             ?>
-            <!--        Si aparece «1. Inicio del ejercicio» , revisar la carga de configDB00.php.
-                    Si aparece «2. Configuración cargada» y se queda esperando, el problema probablemente está en la conexión con MariaDB.
-                    **PHP se queda bloqueado al intentar establecer la conexión con MariaDB. No llega al mensaje 3.
-                    Si aparece el error de conexión,información para solucionarlo.
-                    Si aparece «3. Conexión realizada correctamente», revisar el bucle de atributos.-->
         </main>
         <footer>
-            <p><a href="../indexProyectoTema4.php">Home</a></p>
+            <p><a href="../indexProyectoTema5.php">Home</a></p>
             <div class="footer-text">
-                <p>2026-27 IES Los Sauces. &copy; Todos los derechos reservados.<a href="../../index.html"> Yolanda Rodríguez Moreno</a></p><time datetime="2026-09-30">Última actualización: 30 de Septiembre de 2026</time>
+                <p>2026-27 IES Los Sauces. &copy; Todos los derechos reservados.<a href="../index.html">Yolanda Rodríguez Moreno</a></p>
+                <time datetime="2026-09-30">Última actualización: 05 de Octubre de 2026</time>
             </div>
         </footer>
     </body>
