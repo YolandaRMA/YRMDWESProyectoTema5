@@ -21,14 +21,16 @@
             //se crean constantes para usuario y contraseña
             define("USUARIO", "admin");
             define("PASSWORD", "paso");
-            if ($_SERVER['PHP_AUTH_USER']!= "USUARIO"|| $_SERVER['PHP_AUTH_PW']!="PASSWORD") {
-            // Se rechaza el acceso cuando las credenciales no son correctas.
-                header('WWW-Authenticate: Basic realm="Contenido restringido!!"');
-                header('HTTP/1.1 401 Unauthorized');
-                echo 'Usuario o contraseña incorrectos.';
-                exit;
+             if (!isset($_SERVER['PHP_AUTH_USER']) || $_SERVER['PHP_AUTH_USER'] != USUARIO || $_SERVER['PHP_AUTH_PW'] != PASSWORD)  {
 
+                // Se solicita al navegador la identificación del usuario.
+                header('WWW-Authenticate: Basic realm="Proyecto Tema 5"');
+                header('HTTP/1.1 401 Unauthorized');
+
+                echo 'Es necesario identificarse para acceder a esta página.';
+                exit;
             }
+            
             ?>
             <header>
             <h1>Control de acceso</h1>

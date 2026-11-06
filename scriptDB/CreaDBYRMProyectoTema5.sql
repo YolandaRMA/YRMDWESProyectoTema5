@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS T01_Usuario (
     -- Número de conexiones: solo admite valores positivos o cero.
     -- Si no se indica un valor, se establece inicialmente en 0.
     T01_NumConexiones INT UNSIGNED NOT NULL DEFAULT 0,
-    T01_FechaHoraUltimaConexion DATETIME  DEFAULT NULL,
+    T01_FechaHoraUltimaConexion DATETIME  DEFAULT CURRENT_TIMESTAMP,
     T01_Perfil ENUM('usuario', 'administrador') NOT NULL DEFAULT 'usuario',
     -- LONGBLOB permite almacenar imágenes u otros datos binarios de gran tamaño.
     T01_ImagenUsuario LONGBLOB NULL,
