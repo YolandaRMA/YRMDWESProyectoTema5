@@ -6,35 +6,48 @@
     </head>
     <body>
 
-<!--        autenticación HTTP básica:
-        PHP comprueba si el navegador ha enviado un usuario y una contraseña.
-        Si no los ha enviado, header() solicita la identificación al navegador.
-        El usuario introduce sus credenciales en la ventana que aparece.
-        PHP comprueba si son correctas.
-        Si lo son, permite acceder a la página; si no, devuelve un error 401.
-        **header() y  variables $_SERVER['PHP_AUTH_USER'] y $_SERVER['PHP_AUTH_PW']
-        la comprobación debe hacerse antes de imprimir HTML, porque header() tiene que ejecutarse 
-        antes de enviar contenido al navegador.
--->
-            <?php
-            
-            //se crean constantes para usuario y contraseña
-            define("USUARIO", "admin");
-            define("PASSWORD", "paso");
-             if (!isset($_SERVER['PHP_AUTH_USER']) || $_SERVER['PHP_AUTH_USER'] != USUARIO || $_SERVER['PHP_AUTH_PW'] != PASSWORD)  {
+        <!--        autenticación HTTP básica:
+                PHP comprueba si el navegador ha enviado un usuario y una contraseña.
+                Si no los ha enviado, header() solicita la identificación al navegador.
+                El usuario introduce sus credenciales en la ventana que aparece.
+                PHP comprueba si son correctas.
+                Si lo son, permite acceder a la página; si no, devuelve un error 401.
+                **header() y  variables $_SERVER['PHP_AUTH_USER'] y $_SERVER['PHP_AUTH_PW']
+                la comprobación debe hacerse antes de imprimir HTML, porque header() tiene que ejecutarse 
+                antes de enviar contenido al navegador.
+        -->
+        <?php
+        //se crean constantes para usuario y contraseña
+        define('USUARIO', 'admin');
+        define('CONTRASENA', 'paso');
 
-                // Se solicita al navegador la identificación del usuario.
-                header('WWW-Authenticate: Basic realm="Proyecto Tema 5"');
-                header('HTTP/1.1 401 Unauthorized');
+         // Se comprueba si el navegador ha enviado las credenciales correctas.
+        if (
+                !isset($_SERVER['PHP_AUTH_USER']) ||
+                !isset($_SERVER['PHP_AUTH_PW']) ||
+                $_SERVER['PHP_AUTH_USER'] != USUARIO ||
+                $_SERVER['PHP_AUTH_PW'] != CONTRASENA
+        ) {
 
-                echo 'Es necesario identificarse para acceder a esta página.';
-                exit;
-            }
-            
-            ?>
-            <header>
+            // Se solicita al navegador la identificación del usuario.
+            header('WWW-Authenticate: Basic realm="Proyecto Tema 5"');//solicita al navegador que muestre la ventana de identificación.
+            header('HTTP/1.1 401 Unauthorized');//indica que no se ha autorizado el acceso.
+
+            // Se muestra un mensaje si se han introducido datos incorrectos
+            // o si se ha cancelado la ventana de identificación.
+            echo '<p>Usuario o contraseña incorrectos, o identificación cancelada.</p>';
+
+            // Se ofrece un enlace para volver a mostrar la ventana de identificación.
+            echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?reintentar=1">Volver a intentarlo</a></p>';
+
+            // Se detiene la ejecución del programa.
+            exit;
+        }
+        ?>
+        
+        <header>
             <h1>Control de acceso</h1>
-            </header>
+        </header>
 
         <main>
 
@@ -47,15 +60,15 @@
             </p>
 
         </main>
-            
-        </main>
-        <footer>
-            <p><a href="../indexProyectoTema5.php">Home</a></p>
-            <div class="footer-text">
-                <p>2026-27 IES Los Sauces. &copy; Todos los derechos reservados.<a href="../index.html">Yolanda Rodríguez Moreno</a></p>
-                <time datetime="2026-09-30">Última actualización: 05 de Octubre de 2026</time>
-            </div>
-        </footer>
-    </body>
+
+    </main>
+    <footer>
+        <p><a href="../indexProyectoTema5.php">Home</a></p>
+        <div class="footer-text">
+            <p>2026-27 IES Los Sauces. &copy; Todos los derechos reservados.<a href="../index.html">Yolanda Rodríguez Moreno</a></p>
+            <time datetime="2026-09-30">Última actualización: 05 de Octubre de 2026</time>
+        </div>
+    </footer>
+</body>
 </body>
 </html>
