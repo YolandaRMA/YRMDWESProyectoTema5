@@ -85,7 +85,7 @@
             <p><a href="../indexProyectoTema5.php">Home</a></p>
             <div class="footer-text">
                 <p>2026-27 IES Los Sauces. &copy; Todos los derechos reservados.<a href="../../index.html"> Yolanda Rodríguez Moreno</a></p>
-                <time datetime="2026-09-30">Última actualización: 28 de Octubre de 2026</time>
+                <time datetime="2026-09-30">Última actualización: 07 de Noviembre de 2026</time>
             </div>
         </footer>
     </body>
