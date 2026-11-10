@@ -17,7 +17,7 @@
     }
 
     // Se incluye el archivo de configuración de la conexión a la base de datos.
-    require_once '../config/configDB00_home.php';
+    require_once '../config/configDB00.php';
 
     // Se recogen el código de usuario y la contraseña introducidos en la ventana.
     $codigoUsuario = $_SERVER['PHP_AUTH_USER'];
